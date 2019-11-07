@@ -11,16 +11,36 @@ const eventsFetched = events => ({
 
 export const loadEvents = () => (dispatch, getState) => {
   // when the state already contains events, we don't fetch them again
-  console.log("events", getState().events);
   if (getState().events.length) return;
-  console.log("after");
 
   // a GET /events request
   request(`${baseUrl}/event`)
     .then(response => {
-      console.log("response", response);
       // dispatch an EVENTS_FETCHED action that contains the events
       dispatch(eventsFetched(response.body));
+    })
+    .catch(console.error);
+};
+
+export const EVENT_FETCHED = "EVENT_FETCHED";
+
+const eventFetched = event => ({
+  type: EVENT_FETCHED,
+  event
+});
+
+export const loadEvent = id => (dispatch, getState) => {
+  console.log("state event", getState().event);
+  if (getState().event) return;
+
+  console.log("loadEvent");
+
+  request(`${baseUrl}/event/${id}`)
+    //.then(console.log("get to request", `${baseUrl}/event/${id}`))
+    .then(response => {
+      //     console.log("response", response.body);
+      dispatch(eventFetched(response.body));
+      console.log("PREloadEvent", getState());
     })
     .catch(console.error);
 };

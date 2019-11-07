@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 
 export default class EventsList extends React.Component {
   render() {
-    console.log("this.props.events", this.props.events);
     if (!this.props.events) {
       return <p>Loading...</p>;
     } else {

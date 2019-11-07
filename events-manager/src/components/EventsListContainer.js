@@ -5,12 +5,11 @@ import EventsList from "./EventsList";
 
 class EventsListContainer extends React.Component {
   componentDidMount() {
-    console.log("mount test");
     this.props.loadEvents();
+    console.log("state", this.props.events);
   }
 
   render() {
-    console.log("this.props.events", this.props.events);
     return <EventsList events={this.props.events} />;
   }
 }
